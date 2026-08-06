@@ -1,62 +1,45 @@
 <!DOCTYPE html>
 
-<html>
+
+
+<html lang="en">
     <head>
-        
+        <link rel="stylesheet" href="erstyle.css">
+        <h1>Elden Ring Message Maker</h1>
     </head>
     <body>
-        <h1>Elden Ring Message Maker</h1>
 
-        <label for="templates1">Templates</label>
+        <div id="allMessage">
+            <div id="templates1" class="selection">
+                <label class="selectorLabel">Templates</label>
+                <button id="templatesbutton1" class="selectorButton"></button>
+            </div>
 
-        <select name="templates" id="templates">
-            <option value="*ahead">**** ahead</option>
-            <option value="likely*">Likely ****</option>
-            <option value="ifonlyihada*">If only I had a ****...</option>
-            <option value="*O*">****, O ****</option>
-            <option value="ahh*">Ahh, ****...</option>
-            <option value="no*ahead">No **** ahead</option>
-            <option value="firstoff*">First off, ****</option>
-            <option value="didntexpect*">Didn't expect ****...</option>
-            <option value="behold*">Behold, ****!</option>
-            <option value="*">****</option>
-            <option value="*requiredahead">**** required ahead</option>
-            <option value="seek*">Seek ****</option>
-            <option value="visionsof*">Visions of ****...</option>
-            <option value="offer*">Offer ****</option>
-            <option value="*!">****!</option>
-            <option value="try*">Try ****</option>
-            <option value="whyisitalways*">Why is it always ****?</option>
-            <option value="timefor*">Time for ****</option>
-            <option value="lettherebe*">Let there be ****</option>
-            <option value="*...">****...</option>
-        </select>
+            <div id="words1" class="selection">
+                <label class="selectorLabel">Words</label>
+                <button id="wordsbutton1" class="selectorButton"></button>
+            </div>
 
-    </br>
-        
-        <label for="words1">Words</label>
+            <div id="conjunctions" class="selection">
+                <label class="selectorLabel">Conjunctions</label>
+                <button id="conjunctions" class="selectorButton"></button>
+            </div>
 
-        <select name="templates" id="templates">
-            <option value="*ahead">**** ahead</option>
-            <option value="likely*">Likely ****</option>
-            <option value="ifonlyihada*">If only I had a ****...</option>
-            <option value="*O*">****, O ****</option>
-            <option value="ahh*">Ahh, ****...</option>
-            <option value="no*ahead">No **** ahead</option>
-            <option value="firstoff*">First off, ****</option>
-            <option value="didntexpect*">Didn't expect ****...</option>
-            <option value="behold*">Behold, ****!</option>
-            <option value="*">****</option>
-            <option value="*requiredahead">**** required ahead</option>
-            <option value="seek*">Seek ****</option>
-            <option value="visionsof*">Visions of ****...</option>
-            <option value="offer*">Offer ****</option>
-            <option value="*!">****!</option>
-            <option value="try*">Try ****</option>
-            <option value="whyisitalways*">Why is it always ****?</option>
-            <option value="timefor*">Time for ****</option>
-            <option value="lettherebe*">Let there be ****</option>
-            <option value="*...">****...</option>
-        </select>
+            <div id="templates2" class="selection">
+                <label class="selectorLabel">Templates (2nd Line)</label>
+                <button id="templatesbutton2" class="selectorButton"></button>
+            </div>
+
+            <div id="words2" class="selection">
+                <label class="selectorLabel">Words (2nd Line)</label>
+                <button id="wordsbutton2" class="selectorButton"></button>
+            </div>
+
+            <div id="gestures" class="selection">
+                <label class="selectorLabel">Gestures</label>
+                <button id="gestures" class="selectorButton"></button>
+            </div>
+        </div>
+        <script src="messagehandler.js"></script>
     </body>
 </html>
