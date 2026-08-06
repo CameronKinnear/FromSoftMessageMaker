@@ -39,3 +39,20 @@ h1 {
     display: flex;
     flex-direction: column;
 }
+
+#fillInText {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+#fillInTextCol2 {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+#fillInButtons {
+    display: flex;
+    flex-direction: row;
+}
