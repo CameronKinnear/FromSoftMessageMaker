@@ -35,4 +35,7 @@ h1 {
     width: 33%;
     margin-left: auto;
     margin-right: 10%;
+    white-space: pre-line;
+    display: flex;
+    flex-direction: column;
 }
