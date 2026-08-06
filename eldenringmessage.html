@@ -8,36 +8,42 @@
         <h1>Elden Ring Message Maker</h1>
     </head>
     <body>
+        <div id="window">
+            <div id="allMessage">
+                <div id="templates1" class="selection">
+                    <label class="selectorLabel">Templates</label>
+                    <button id="templatesbutton1" class="selectorButton templatesButton"></button>
+                </div>
 
-        <div id="allMessage">
-            <div id="templates1" class="selection">
-                <label class="selectorLabel">Templates</label>
-                <button id="templatesbutton1" class="selectorButton"></button>
+                <div id="words1" class="selection">
+                    <label class="selectorLabel">Words</label>
+                    <button id="wordsbutton1" class="selectorButton wordsButton"></button>
+                </div>
+
+                <div id="conjunctions" class="selection">
+                    <label class="selectorLabel">Conjunctions</label>
+                    <button id="conjunctionsButton" class="selectorButton conjunctionsButton"></button>
+                </div>
+
+                <div id="templates2" class="selection">
+                    <label class="selectorLabel">Templates (2nd Line)</label>
+                    <button id="templatesbutton2" class="selectorButton templatesButton"></button>
+                </div>
+
+                <div id="words2" class="selection">
+                    <label class="selectorLabel">Words (2nd Line)</label>
+                    <button id="wordsbutton2" class="selectorButton wordsButton"></button>
+                </div>
+
+                <div id="gestures" class="selection">
+                    <label class="selectorLabel">Gestures</label>
+                    <button id="gesturesButton" class="selectorButton gestureButton"></button>
+                </div>
             </div>
 
-            <div id="words1" class="selection">
-                <label class="selectorLabel">Words</label>
-                <button id="wordsbutton1" class="selectorButton"></button>
-            </div>
-
-            <div id="conjunctions" class="selection">
-                <label class="selectorLabel">Conjunctions</label>
-                <button id="conjunctions" class="selectorButton"></button>
-            </div>
-
-            <div id="templates2" class="selection">
-                <label class="selectorLabel">Templates (2nd Line)</label>
-                <button id="templatesbutton2" class="selectorButton"></button>
-            </div>
-
-            <div id="words2" class="selection">
-                <label class="selectorLabel">Words (2nd Line)</label>
-                <button id="wordsbutton2" class="selectorButton"></button>
-            </div>
-
-            <div id="gestures" class="selection">
-                <label class="selectorLabel">Gestures</label>
-                <button id="gestures" class="selectorButton"></button>
+            <div id="fillIn">
+                <div id="fillInTemplates">
+                </div>
             </div>
         </div>
         <script src="messagehandler.js"></script>
