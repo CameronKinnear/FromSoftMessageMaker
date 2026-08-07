@@ -3,11 +3,13 @@ const wordsButtons = document.querySelectorAll(".wordsButton");
 const conjunctionButton = document.getElementById("conjunctionsButton");
 const gesturesButton = document.getElementById("gesturesButton");
 const selectedHeader = document.getElementById("selectedHeader");
+var currentSelection;
 
 templateButtons.forEach(button => {
     button.addEventListener('click', () => {
         console.log("Templates button");
         selectedHeader.innerText = "Selected Id: " + button.id;
+        SetSelection(button);
         GetFillInText("Templates");
     })
 });
@@ -16,6 +18,7 @@ wordsButtons.forEach(button => {
     button.addEventListener('click', () => {
         console.log("Words Button");
         selectedHeader.innerText = "Selected Id: " + button.id;
+        SetSelection(button);
         GetFillInText("Words");
     })
 }) 
@@ -23,12 +26,14 @@ wordsButtons.forEach(button => {
 conjunctionButton.addEventListener('click', () => {
     console.log("Conjunctions Button");
     selectedHeader.innerText = "Selected Id: " + conjunctionButton.id;
+    SetSelection(conjunctionButton);
     GetFillInText("Conjunctions");
 })
 
 gesturesButton.addEventListener('click', () => {
     console.log("Gestures Button");
     selectedHeader.innerText = "Selected Id: " + gesturesButton.id;
+    SetSelection(gesturesButton);
 })
 
 const fillInText = document.getElementById("fillInText")
@@ -52,6 +57,11 @@ async function GetFillInText(textType) {
                 GetFillInWords(text);
             });
         }
+        else {
+            newButton.addEventListener('click', () => {
+                SetButtonText(newButton.innerHTML);
+            })
+        }
         fillTextArea.appendChild(newButton);
     }
 }
@@ -70,6 +80,9 @@ async function GetFillInWords(wordsType) {
         const newButton = document.createElement('button');
         newButton.innerHTML = text;
         newButton.style.width = "auto"
+        newButton.addEventListener('click', () => {
+            SetButtonText(newButton.innerHTML);
+        })
         fillTextArea.appendChild(newButton);
     }
 }
@@ -89,4 +102,13 @@ async function RemoveButtonsCol2() {
     while (fillTextAreaCol2.firstChild) {
         fillTextAreaCol2.removeChild(fillTextAreaCol2.firstChild);
     }
+}
+
+async function SetButtonText(text) {
+    currentSelection.innerHTML = text;
+}
+
+async function SetSelection(selection) {
+    currentSelection = selection;
+    return currentSelection;
 }
