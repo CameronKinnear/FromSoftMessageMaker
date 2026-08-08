@@ -102,8 +102,19 @@ async function GetFillInText(textType) {
         const newButton = document.createElement('button');
         newButton.innerHTML = text;
         newButton.style.width = "auto"
+        // Is searchable logic
+        if (textType == "Gestures") {
+            SetSearchBarVisibility(true);
+            newButton.classList.add("searchable");
+        }
+        else {
+            SetSearchBarVisibility(false);
+        }
+
+        // On click logic
         if (textType == "Words") {
             newButton.addEventListener('click', () => {
+                SetSearchBarVisibility(true);
                 GetFillInWords(text);
             });
         }
@@ -130,9 +141,6 @@ async function GetFillInText(textType) {
 async function GetFillInWords(wordsType) {
 
     RemoveButtonsCol2();
-    if (wordsType == "All") {
-
-    }
     const response = await fetch("Words/" + wordsType + ".txt")
     const rawData = await response.text();
     const data = await rawData.split("\n");
@@ -142,6 +150,7 @@ async function GetFillInWords(wordsType) {
         const newButton = document.createElement('button');
         newButton.innerHTML = text;
         newButton.style.width = "auto"
+        newButton.classList.add("searchable");
         newButton.addEventListener('click', () => {
             const renderLine = currentSelection.dataset.renderonline;
             SetButtonText(newButton.innerHTML);
@@ -214,5 +223,32 @@ async function RemoveButtonsCol2() {
 
     while (fillTextAreaCol2.firstChild) {
         fillTextAreaCol2.removeChild(fillTextAreaCol2.firstChild);
+    }
+}
+
+async function filterFillIn() {
+  const wordsQuery = document.getElementById('fillInSearch').value.toLowerCase();
+  const words = document.querySelectorAll('.searchable');
+
+  words.forEach(word => {
+    // Get the text inside the current div
+    const wordContent = word.textContent.toLowerCase();
+
+    // 4. If the text matches the query, show it. Otherwise, hide it.
+    if (wordContent.includes(wordsQuery)) {
+      word.style.display = ""; // Restores default display (blocks/flex)
+    } else {
+      word.style.display = "none"; // Hides the element entirely
+    }
+  });
+}
+
+async function SetSearchBarVisibility(visibility) {
+    const inputField = document.getElementById("fillInSearch");
+    if (visibility == true) {
+        inputField.style.visibility = "visible"
+    }
+    else {
+        inputField.style.visibility = "hidden";
     }
 }

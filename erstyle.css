@@ -92,7 +92,11 @@ button:hover {
     width: 66%;
 }
 
+#fillInSearch {
+    visibility: hidden;
+}
+
 #messageRenderedArea {
-    text-align: left;
-    margin-left: 50%;
+    width: 50%;
+    margin-left: auto;
 }
