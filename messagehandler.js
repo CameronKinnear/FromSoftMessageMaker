@@ -20,7 +20,7 @@ var line1Template = "";
 var line2Template = "";
 var line1Word = "****";
 var line2Word = "****"
-var line1Conjunction = "";
+var lineConjunction = "";
 async function SetLineTemplate(renderLine, text) {
     if (renderLine == 1 ) {
         line1Template = text;
@@ -40,7 +40,7 @@ async function SetLineWord(renderLine, text) {
 }
 
 async function SetLineConjunction(text) {
-    line1Conjunction = text;
+    lineConjunction = text;
 }
 
 
@@ -130,7 +130,9 @@ async function GetFillInText(textType) {
 async function GetFillInWords(wordsType) {
 
     RemoveButtonsCol2();
-    
+    if (wordsType == "All") {
+
+    }
     const response = await fetch("Words/" + wordsType + ".txt")
     const rawData = await response.text();
     const data = await rawData.split("\n");
@@ -163,15 +165,18 @@ const line2Render = document.getElementById("line2Render");
 const gestureRender = document.getElementById("gestureRender");
 
 async function ReRenderMessage(lineToReRender) {
-    if (lineToReRender == 1) {
-        line1Render.innerHTML = line1Template.trim().replaceAll("****", line1Word.trim()) + line1Conjunction;
-    }
-    else if (lineToReRender == 2) {
-        line2Render.innerHTML = line2Template.trim().replaceAll("****", line2Word.trim());
+    var conjLine1 = "";
+    var conjLine2 = "";
+    
+    if (lineConjunction == ",") {
+        conjLine1 = ",";
     }
     else {
-
+        conjLine2 = lineConjunction;
     }
+
+    line1Render.innerHTML = line1Template.trimEnd().replaceAll("****", line1Word.trimEnd()) + conjLine1;
+    line2Render.innerHTML = conjLine2 + line2Template.trim().replaceAll("****", line2Word.trim());
 }
 
 //

@@ -5,36 +5,38 @@
 <html lang="en">
     <head>
         <link rel="stylesheet" href="erstyle.css">
+
         <h1>Elden Ring Message Maker</h1>
     </head>
     <body>
         <div id="window">
-            <div id="allMessage">
-                <div id="selectorLabelsGroup">
-                    <label class="selectorLabel">Templates</label>
-                    <label class="selectorLabel">Words</label>
-                    <label class="selectorLabel">Conjunctions</label>
-                    <label class="selectorLabel">Templates (2nd Line)</label>
-                    <label class="selectorLabel">Words (2nd Line)</label>
-                    <label class="selectorLabel">Gestures</label>
+            <div id="leftWindow">
+                <div id="selectionArea">
+                    <div id="selectorLabelsGroup">
+                        <label class="selectorLabel">Templates</label>
+                        <label class="selectorLabel">Words</label>
+                        <label class="selectorLabel">Conjunctions</label>
+                        <label class="selectorLabel">Templates (2nd Line)</label>
+                        <label class="selectorLabel">Words (2nd Line)</label>
+                        <label class="selectorLabel">Gestures</label>
+                    </div>
+                    <div id="selectorButtonsGroup">
+                        <button id="templatesbutton1" class="selectorButton templatesButton" data-renderonline="1"></button>
+                        <button id="wordsbutton1" class="selectorButton wordsButton" data-renderonline="1"></button>
+                        <button id="conjunctionsButton" class="selectorButton conjunctionsButton" data-renderonline="1"></button>
+                        <button id="templatesbutton2" class="selectorButton templatesButton" data-renderonline="2"></button>
+                        <button id="wordsbutton2" class="selectorButton wordsButton" data-renderonline="2"></button>
+                        <button id="gesturesButton" class="selectorButton gestureButton" data-renderonline="3"></button>
+                    </div>
                 </div>
-                <div id="selectorButtonsGroup">
-                    <button id="templatesbutton1" class="selectorButton templatesButton" data-renderonline="1"></button>
-                    <button id="wordsbutton1" class="selectorButton wordsButton" data-renderonline="1"></button>
-                    <button id="conjunctionsButton" class="selectorButton conjunctionsButton" data-renderonline="1"></button>
-                    <button id="templatesbutton2" class="selectorButton templatesButton" data-renderonline="2"></button>
-                    <button id="wordsbutton2" class="selectorButton wordsButton" data-renderonline="2"></button>
-                    <button id="gesturesButton" class="selectorButton gestureButton" data-renderonline="3"></button>
-                </div>
-            </div>
 
-            <div id="messageRenderedArea">
-                <p id="line1Render"></p>
-                <p id="line2Render"></p>
-                <p id="gestureRender"></p>
+                <div id="messageRenderedArea">
+                    <p id="line1Render"></p>
+                    <p id="line2Render"></p>
+                    <p id="gestureRender"></p>
+                </div>
             </div>
             
-
             <div id="fillIn">
                 <h2 id="selectedHeader"></h2>
                 <div id="fillInButtons">
