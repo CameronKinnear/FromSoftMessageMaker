@@ -167,16 +167,16 @@ async function SetFillInColumnsTo(num) {
 
 
 //
-// Set and Get Line Templates
+// Set Line Templates
 //
 var line1Template;
-var line2Tempalte;
+var line2Template;
 async function SetLineTemplate(renderLine, text) {
     if (renderLine == 1 ) {
         line1Template = text;
     }
     else {
-        line2Tempalte = text;
+        line2Template = text;
     }
 }
 
