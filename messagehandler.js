@@ -4,13 +4,6 @@ const conjunctionButton = document.getElementById("conjunctionsButton");
 const gesturesButton = document.getElementById("gesturesButton");
 const selectedHeader = document.getElementById("selectedHeader");
 
-const template1Render = document.getElementById("templates1Rendered");
-const words1Render = document.getElementById("words1Rendered");
-const conjunctionsRender = document.getElementById("conjunctionsRendered");
-const templates2Render = document.getElementById("templates2Rendered");
-const words2Render = document.getElementById("words2Rendered");
-const gesturesRender = document.getElementById("gesturesRendered");
-
 //
 // Set and Get Current Selection
 //
@@ -18,6 +11,47 @@ var currentSelection;
 async function SetCurrentSelection(selection) {
     currentSelection = selection;
 }
+
+
+//
+// Set data for renderer
+//
+var line1Template = "";
+var line2Template = "";
+var line1Word = "****";
+var line2Word = "****"
+var line1Conjunction = "";
+async function SetLineTemplate(renderLine, text) {
+    if (renderLine == 1 ) {
+        line1Template = text;
+    }
+    else {
+        line2Template = text;
+    }
+}
+
+async function SetLineWord(renderLine, text) {
+    if (renderLine == 1 ) {
+        line1Word = text;
+    }
+    else {
+        line2Word = text;
+    }
+}
+
+async function SetLineConjunction(text) {
+    line1Conjunction = text;
+}
+
+
+//
+// Set text for selected button
+//
+async function SetButtonText(text) {
+    currentSelection.innerHTML = text;
+}
+
+
 
 
 templateButtons.forEach(button => {
@@ -77,10 +111,15 @@ async function GetFillInText(textType) {
             newButton.addEventListener('click', () => {
                 const renderLine = currentSelection.dataset.renderonline;
                 SetButtonText(newButton.innerHTML);
-                SetRenderText(renderLine, textType, text);
+
                 if (textType == "Templates") {
                     SetLineTemplate(renderLine, text);
                 }
+                else if (textType == "Conjunctions") {
+                    SetLineConjunction(text);
+                }
+
+                ReRenderMessage(renderLine);
             })
         }
         fillTextArea.appendChild(newButton);
@@ -102,18 +141,18 @@ async function GetFillInWords(wordsType) {
         newButton.innerHTML = text;
         newButton.style.width = "auto"
         newButton.addEventListener('click', () => {
+            const renderLine = currentSelection.dataset.renderonline;
             SetButtonText(newButton.innerHTML);
-            SetRenderText(currentSelection.dataset.renderonline, "Words", text);
+            SetLineWord(renderLine, text);
+            ReRenderMessage(renderLine);
         })
         fillTextArea.appendChild(newButton);
+        
     }
 }
 
 
 
-async function SetButtonText(text) {
-    currentSelection.innerHTML = text;
-}
 
 
 //
@@ -121,33 +160,19 @@ async function SetButtonText(text) {
 //
 const line1Render = document.getElementById("line1Render");
 const line2Render = document.getElementById("line2Render");
-async function SetRenderText(renderline, category, text) {
-    if (category == "Templates") {
-        if (renderline == 1) {
-            line1Render.innerHTML = text;
-        }
-        else {
-            line2Render.innerHTML = text;
-        }
-    }
+const gestureRender = document.getElementById("gestureRender");
 
-    else if (category == "Words") {
-        UpdateWordOnTemplate(renderline, text);
+async function ReRenderMessage(lineToReRender) {
+    if (lineToReRender == 1) {
+        line1Render.innerHTML = line1Template.trim().replaceAll("****", line1Word.trim()) + line1Conjunction;
     }
-}
-
-async function UpdateWordOnTemplate(renderline, text) {
-    if (renderline == 1) {
-        const newText = line1Template.replaceAll("****", text);
-        line1Render.innerHTML = newText;
+    else if (lineToReRender == 2) {
+        line2Render.innerHTML = line2Template.trim().replaceAll("****", line2Word.trim());
     }
     else {
-        const newText = line2Template.replaceAll("****", text);
-        line2Render.innerHTML = newText;
+
     }
 }
-
-
 
 //
 // Sets the column width for different selections
@@ -166,19 +191,6 @@ async function SetFillInColumnsTo(num) {
 }
 
 
-//
-// Set Line Templates
-//
-var line1Template;
-var line2Template;
-async function SetLineTemplate(renderLine, text) {
-    if (renderLine == 1 ) {
-        line1Template = text;
-    }
-    else {
-        line2Template = text;
-    }
-}
 
 
 //
