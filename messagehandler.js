@@ -21,6 +21,7 @@ var line2Template = "";
 var line1Word = "****";
 var line2Word = "****"
 var lineConjunction = "";
+var lineGesture = ""
 async function SetLineTemplate(renderLine, text) {
     if (renderLine == 1 ) {
         line1Template = text;
@@ -43,6 +44,19 @@ async function SetLineConjunction(text) {
     lineConjunction = text;
 }
 
+async function SetLineGesture(text) {
+    const toLower = text.toLowerCase();
+    const toUnderscore = toLower.replace(/[^\w\s]|_/g, "");
+    const finalText = toUnderscore.replaceAll(" ", "_")
+    lineGesture = "Gestures/" + finalText + ".png";
+    console.log(lineGesture);
+}
+
+async function ConvertSelectionToGesture(selection) {
+    
+    console.log("After conversion " + finalText);
+    return String(finalText);
+}
 
 //
 // Set text for selected button
@@ -129,6 +143,9 @@ async function GetFillInText(textType) {
                 else if (textType == "Conjunctions") {
                     SetLineConjunction(text);
                 }
+                else if (textType == "Gestures") {
+                    SetLineGesture(text);
+                }
 
                 ReRenderMessage(renderLine);
             })
@@ -186,6 +203,7 @@ async function ReRenderMessage(lineToReRender) {
 
     line1Render.innerHTML = line1Template.trimEnd().replaceAll("****", line1Word.trimEnd()) + conjLine1;
     line2Render.innerHTML = conjLine2 + line2Template.trim().replaceAll("****", line2Word.trim());
+    gestureRender.src = lineGesture;
 }
 
 //

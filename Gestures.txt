@@ -1,52 +1,52 @@
-Point Forwards 
-Point Upwards 
+Point Forwards
+Point Upwards
 Point Downwards
-Wait! 
-Calm Down! 
-Wave Beckon
-Casual Greeting 
-Warm Welcome 
-Bravo! 
+Wait!
+Calm Down!
+Wave
+Beckon
+Casual Greeting
+Warm Welcome
+Bravo!
 Strength!
-Jump for Joy 
-Triumphant Delight 
+Jump for Joy
+Triumphant Delight
 Fancy Spin
-Nod in Thought 
-Finger Snap 
-Rallying Cry 
+Nod in Thought
+Finger Snap
+Rallying Cry
 Heartening Cry
-Bow 
-Polite Bow 
-Reverential Bow 
+Bow
+Polite Bow
+Reverential Bow
 As You Wish
-May the Best Win 
-My Thanks 
-Curtsy 
+May the Best Win
+My Thanks
+Curtsy
 My Lord
-Let Us Go Together 
-O Mother 
+Let Us Go Together
+O Mother
 What Do You Want?
-By My Sword 
-Hoslow's Oath 
+By My Sword
+Hoslow's Oath
 Fire Spur Me
-The Ring 
-Ring of Miquella 
+The Ring
+Ring of Miquella
 Erudition
-Prayer 
-Desperate Prayer 
+Prayer
+Desperate Prayer
 Rapture
-Inner Order 
-Outer Order 
-Golden Order 
-Totality 
+Inner Order
+Outer Order
+Golden Order Totality
 The Two Fingers
-Extreme Repentance 
+Extreme Repentance
 Grovel for Mercy
-Crossed Legs 
-Dozing Cross-Legged 
-Rest 
+Crossed Legs
+Dozing Cross Legged
+Rest
 Sitting Sideways
-Dejection 
-Patches' Crouch 
-Balled Up 
+Dejection
+Patches' Crouch
+Balled Up
 Spread Out
