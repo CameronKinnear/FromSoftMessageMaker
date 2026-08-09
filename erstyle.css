@@ -1,3 +1,9 @@
+@font-face {
+    font-family: "EB-Garamond";
+    src: url(fonts/EB_Garamond/static/EBGaramond-Regular.ttf);
+}
+
+
 #selectionArea {
     height: auto;
     width: 100%;
@@ -97,14 +103,22 @@ button:hover {
 }
 
 #messageRenderedArea {
-    width: 66%;
+    width: 50%;
     margin-left: auto;
     display: flex;
     flex-direction: row;
+    margin-top: 5%;
 }
 
 #textRenderArea {
     display: flex;
     flex-direction: column;
     margin-left: 5%;
+}
+
+.text {
+    font-family: "EB-Garamond";
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
