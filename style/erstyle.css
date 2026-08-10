@@ -103,7 +103,7 @@ button:hover {
 }
 
 #messageRenderedArea {
-    width: 50%;
+    width: 66%;
     margin-left: auto;
     display: flex;
     flex-direction: row;

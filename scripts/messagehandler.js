@@ -225,7 +225,7 @@ async function ReRenderMessage(lineToReRender) {
     }
 
     line1Render.innerHTML = line1Template.trimEnd().replaceAll("****", line1Word.trimEnd()) + conjLine1;
-    line2Render.innerHTML = conjLine2 + line2Template.trim().replaceAll("****", line2Word.trim());
+    line2Render.innerHTML = conjLine2 + " " + line2Template.trim().replaceAll("****", line2Word.trim());
     if (lineGesture != "") {
         gestureRender.src = lineGesture;
     }
