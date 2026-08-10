@@ -47,16 +47,18 @@ async function SetLineConjunction(text) {
 async function SetLineGesture(text) {
     const toLower = text.toLowerCase();
     const toUnderscore = toLower.replace(/[^\w\s]|_/g, "");
-    const finalText = toUnderscore.replaceAll(" ", "_")
+    const finalText = toUnderscore.replaceAll(" ", "_");
     lineGesture = "Gestures/" + finalText + ".png";
     console.log(lineGesture);
 }
 
-async function ConvertSelectionToGesture(selection) {
-    
-    console.log("After conversion " + finalText);
-    return String(finalText);
+async function GetGestureFileName(text) {
+    const toLower = text.toLowerCase();
+    const toUnderscore = toLower.replace(/[^\w\s]|_/g, "");
+    const finalText = toUnderscore.replaceAll(" ", "_")
+    return finalText;
 }
+
 
 //
 // Set text for selected button
@@ -66,8 +68,9 @@ async function SetButtonText(text) {
 }
 
 
-
-
+//
+// Initial Buttons
+//
 templateButtons.forEach(button => {
     button.addEventListener('click', () => {
         selectedHeader.innerText = "Templates";
@@ -100,6 +103,10 @@ gesturesButton.addEventListener('click', () => {
     GetFillInText("Gestures");
 })
 
+
+//
+// FIll in area functions
+//
 const fillInText = document.getElementById("fillInText")
 
 async function GetFillInText(textType) {
@@ -116,10 +123,12 @@ async function GetFillInText(textType) {
         const newButton = document.createElement('button');
         newButton.innerHTML = text;
         newButton.style.width = "auto"
+        
         // Is searchable logic
         if (textType == "Gestures") {
             SetSearchBarVisibility(true);
             newButton.classList.add("searchable");
+            newButton.innerHTML = "<img src=\"Gestures/" + await GetGestureFileName(text) + ".png\" width=\"100\" height=\"100\"><br>" + text;
         }
         else {
             SetSearchBarVisibility(false);
@@ -135,7 +144,7 @@ async function GetFillInText(textType) {
         else {
             newButton.addEventListener('click', () => {
                 const renderLine = currentSelection.dataset.renderonline;
-                SetButtonText(newButton.innerHTML);
+                SetButtonText(text);
 
                 if (textType == "Templates") {
                     SetLineTemplate(renderLine, text);
@@ -180,9 +189,6 @@ async function GetFillInWords(wordsType) {
 }
 
 
-
-
-
 //
 // Update text on renderer
 //
@@ -203,8 +209,11 @@ async function ReRenderMessage(lineToReRender) {
 
     line1Render.innerHTML = line1Template.trimEnd().replaceAll("****", line1Word.trimEnd()) + conjLine1;
     line2Render.innerHTML = conjLine2 + line2Template.trim().replaceAll("****", line2Word.trim());
-    gestureRender.src = lineGesture;
+    if (lineGesture != "") {
+        gestureRender.src = lineGesture;
+    }
 }
+
 
 //
 // Sets the column width for different selections
@@ -221,8 +230,6 @@ async function SetFillInColumnsTo(num) {
         col2.style.width = "0%";
     }
 }
-
-
 
 
 //
