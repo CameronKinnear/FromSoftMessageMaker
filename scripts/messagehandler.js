@@ -1,8 +1,6 @@
-const templateButtons = document.querySelectorAll(".templatesButton");
-const wordsButtons = document.querySelectorAll(".wordsButton");
-const conjunctionButton = document.getElementById("conjunctionsButton");
-const gesturesButton = document.getElementById("gesturesButton");
-const selectedHeader = document.getElementById("selectedHeader");
+const selectionAreaCol1 = document.getElementById("selectionAreaCol1");
+const selectionAreaCol2 = document.getElementById("selectionAreaCol2");
+
 
 //
 // Set and Get Current Selection
@@ -69,14 +67,22 @@ async function SetButtonText(text) {
 
 
 //
-// Initial Buttons
+// Catergory Buttons
 //
+
+// Constants for the category buttons
+const templateButtons = document.querySelectorAll(".templatesButton");
+const wordsButtons = document.querySelectorAll(".wordsButton");
+const conjunctionButton = document.getElementById("conjunctionsButton");
+const gesturesButton = document.getElementById("gesturesButton");
+const selectedHeader = document.getElementById("selectedHeader");
+
 templateButtons.forEach(button => {
     button.addEventListener('click', () => {
         selectedHeader.innerText = "Templates";
         SetCurrentSelection(button);
-        SetFillInColumnsTo(1);
-        GetFillInText("Templates");
+        ChangeSelectionArea("Templates");
+        SetSelectionAreaCol1("Templates");
     })
 });
 
@@ -84,94 +90,105 @@ wordsButtons.forEach(button => {
     button.addEventListener('click', () => {
         selectedHeader.innerText = "Words";
         SetCurrentSelection(button);
-        SetFillInColumnsTo(2);
-        GetFillInText("Words");
+        ChangeSelectionArea("Words");
+        SetSelectionAreaCol1("Words");
     })
 }) 
 
 conjunctionButton.addEventListener('click', () => {
     selectedHeader.innerText = "Conjunctions";
     SetCurrentSelection(conjunctionButton);
-    SetFillInColumnsTo(1);
-    GetFillInText("Conjunctions");
+    ChangeSelectionArea("Conjunctions");
+    SetSelectionAreaCol1("Conjunctions");
 })
 
 gesturesButton.addEventListener('click', () => {
     selectedHeader.innerText = "Gestures";
     SetCurrentSelection(gesturesButton);
-    SetFillInColumnsTo(1);
-    GetFillInText("Gestures");
+    ChangeSelectionArea("Gestures");
+    SetSelectionAreaCol1("Gestures");
 })
 
 
 //
 // FIll in area functions
-//
-const fillInText = document.getElementById("fillInText")
+// REFACTOR BRUH
+async function SetSelectionAreaCol1(textType) {
 
-async function GetFillInText(textType) {
-
+    // Reset for new buttons
     RemoveButtons();
     RemoveButtonsCol2();
 
+    // Get data from file
     const response = await fetch(textType + ".txt")
     const rawData = await response.text();
     const data = await rawData.split("\n");
 
-    const fillTextArea = document.getElementById("fillInText");
+    // Fill in buttons
     for (const text of data) {
+        
+        // Create a new button object
         const newButton = document.createElement('button');
         newButton.innerHTML = text;
         newButton.style.width = "auto"
-        
-        // Is searchable logic
-        if (textType == "Gestures") {
-            SetSearchBarVisibility(true);
-            newButton.classList.add("searchable");
-            newButton.innerHTML = "<img src=\"Gestures/" + await GetGestureFileName(text) + ".png\" width=\"100\" height=\"100\"><br>" + text;
-        }
-        else {
+
+        // Choose logic based on button pressed
+        const renderLine = currentSelection.dataset.renderonline;
+
+        // Template Button Selected
+        if (textType == "Templates") {
             SetSearchBarVisibility(false);
-        }
-
-        // On click logic
-        if (textType == "Words") {
             newButton.addEventListener('click', () => {
-                SetSearchBarVisibility(true);
-                GetFillInWords(text);
-            });
-        }
-        else {
-            newButton.addEventListener('click', () => {
-                const renderLine = currentSelection.dataset.renderonline;
                 SetButtonText(text);
-
-                if (textType == "Templates") {
-                    SetLineTemplate(renderLine, text);
-                }
-                else if (textType == "Conjunctions") {
-                    SetLineConjunction(text);
-                }
-                else if (textType == "Gestures") {
-                    SetLineGesture(text);
-                }
-
+                SetLineTemplate(renderLine, text);
                 ReRenderMessage(renderLine);
             })
         }
-        fillTextArea.appendChild(newButton);
+
+        // Words Button Selected
+        else if (textType == "Words") {
+            SetSearchBarVisibility(false);
+            newButton.addEventListener('click', () => {
+                SetSearchBarVisibility(true);
+                SetSelectionAreaCol2(text);
+            })
+        }
+
+        // Conjunctions Button Selected
+        else if (textType == "Conjunctions") {
+            SetSearchBarVisibility(false);
+            newButton.addEventListener('click', () => {
+                SetButtonText(text);
+                SetLineConjunction(text);
+                ReRenderMessage(renderLine);
+            })
+        }
+
+        // Gestures Button Selected
+        else if (textType == "Gestures") {
+            SetSearchBarVisibility(true);
+            newButton.classList.add("searchable");
+            newButton.style.width = "25%";
+            newButton.innerHTML = "<img src=\"Gestures/" + await GetGestureFileName(text) + ".png\" width=\"100\" height=\"100\"><br>" + text;
+            newButton.addEventListener('click', () => {
+                SetButtonText(text);
+                SetLineGesture(text);
+                ReRenderMessage(renderLine);
+            })
+        }
+        
+        selectionAreaCol1.appendChild(newButton);
     }
 }
 
 
-async function GetFillInWords(wordsType) {
+async function SetSelectionAreaCol2(wordsType) {
 
     RemoveButtonsCol2();
     const response = await fetch("Words/" + wordsType + ".txt")
     const rawData = await response.text();
     const data = await rawData.split("\n");
 
-    const fillTextArea = document.getElementById("fillInTextCol2");
     for (const text of data) {
         const newButton = document.createElement('button');
         newButton.innerHTML = text;
@@ -183,7 +200,7 @@ async function GetFillInWords(wordsType) {
             SetLineWord(renderLine, text);
             ReRenderMessage(renderLine);
         })
-        fillTextArea.appendChild(newButton);
+        selectionAreaCol2.appendChild(newButton);
         
     }
 }
@@ -218,16 +235,23 @@ async function ReRenderMessage(lineToReRender) {
 //
 // Sets the column width for different selections
 //
-const col1 = document.getElementById("fillInText");
-const col2 = document.getElementById("fillInTextCol2");
-async function SetFillInColumnsTo(num) {
-    if (num == 2) {
-        col1.style.width = "50%";
-        col2.style.width = "50%";
+async function ChangeSelectionArea(selectionType) {
+    if (selectionType == "Templates" || selectionType == "Conjunctions") {
+        console.log("temp or conj");
+        selectionAreaCol1.style.width = "100%";
+        selectionAreaCol2.style.width = "0%";
+        selectionAreaCol1.style.flexDirection = "column";
     }
-    else {
-        col1.style.width = "100%";
-        col2.style.width = "0%";
+    else if (selectionType == "Words") {
+        selectionAreaCol1.style.width = "50%";
+        selectionAreaCol2.style.width = "50%";
+        selectionAreaCol1.style.flexDirection = "column";
+    }
+    else if (selectionType == "Gestures") {
+        selectionAreaCol1.style.width = "100%";
+        selectionAreaCol2.style.width = "0%";
+        selectionAreaCol1.style.flexDirection = "row";
+        selectionAreaCol1.style.flexWrap = "wrap";
     }
 }
 
@@ -236,23 +260,23 @@ async function SetFillInColumnsTo(num) {
 // Remove the buttons from the fill in area
 //
 async function RemoveButtons() {
-    const fillTextArea = document.getElementById("fillInText");
+    const selectionAreaCol1 = document.getElementById("selectionAreaCol1");
 
-    while (fillTextArea.firstChild) {
-        fillTextArea.removeChild(fillTextArea.firstChild);
+    while (selectionAreaCol1.firstChild) {
+        selectionAreaCol1.removeChild(selectionAreaCol1.firstChild);
     }
 }
 
 async function RemoveButtonsCol2() {
-    const fillTextAreaCol2 = document.getElementById("fillInTextCol2");
+    const selectionAreaCol1Col2 = document.getElementById("selectionAreaCol2");
 
-    while (fillTextAreaCol2.firstChild) {
-        fillTextAreaCol2.removeChild(fillTextAreaCol2.firstChild);
+    while (selectionAreaCol1Col2.firstChild) {
+        selectionAreaCol1Col2.removeChild(selectionAreaCol1Col2.firstChild);
     }
 }
 
-async function filterFillIn() {
-  const wordsQuery = document.getElementById('fillInSearch').value.toLowerCase();
+async function filterSelectionArea() {
+  const wordsQuery = document.getElementById('selectionSearch').value.toLowerCase();
   const words = document.querySelectorAll('.searchable');
 
   words.forEach(word => {
@@ -269,7 +293,7 @@ async function filterFillIn() {
 }
 
 async function SetSearchBarVisibility(visibility) {
-    const inputField = document.getElementById("fillInSearch");
+    const inputField = document.getElementById("selectionSearch");
     if (visibility == true) {
         inputField.style.visibility = "visible"
     }
