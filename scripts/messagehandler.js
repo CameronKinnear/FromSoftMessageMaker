@@ -46,7 +46,7 @@ async function SetLineGesture(text) {
     const toLower = text.toLowerCase();
     const toUnderscore = toLower.replace(/[^\w\s]|_/g, "");
     const finalText = toUnderscore.replaceAll(" ", "_");
-    lineGesture = "Gestures/" + finalText + ".png";
+    lineGesture = "selections_txt_files/Gestures/" + finalText + ".png";
     console.log(lineGesture);
 }
 
@@ -56,6 +56,32 @@ async function GetGestureFileName(text) {
     const finalText = toUnderscore.replaceAll(" ", "_")
     return finalText;
 }
+
+//
+// Update text on renderer
+//
+const line1Render = document.getElementById("line1Render");
+const line2Render = document.getElementById("line2Render");
+const gestureRender = document.getElementById("gestureRender");
+
+async function ReRenderMessage(lineToReRender) {
+    var conjLine1 = "";
+    var conjLine2 = "";
+    
+    if (lineConjunction == ",") {
+        conjLine1 = ",";
+    }
+    else {
+        conjLine2 = lineConjunction;
+    }
+
+    line1Render.innerHTML = line1Template.trimEnd().replaceAll("****", line1Word.trimEnd()) + conjLine1;
+    line2Render.innerHTML = conjLine2 + " " + line2Template.trim().replaceAll("****", line2Word.trim());
+    if (lineGesture != "") {
+        gestureRender.src = lineGesture;
+    }
+}
+
 
 
 //
@@ -120,7 +146,7 @@ async function SetSelectionAreaCol1(textType) {
     RemoveButtonsCol2();
 
     // Get data from file
-    const response = await fetch(textType + ".txt")
+    const response = await fetch("selections_txt_files/" + textType + ".txt")
     const rawData = await response.text();
     const data = await rawData.split("\n");
 
@@ -169,7 +195,7 @@ async function SetSelectionAreaCol1(textType) {
             SetSearchBarVisibility(true);
             newButton.classList.add("searchable");
             newButton.style.width = "25%";
-            newButton.innerHTML = "<img src=\"Gestures/" + await GetGestureFileName(text) + ".png\" width=\"100\" height=\"100\"><br>" + text;
+            newButton.innerHTML = "<img src=\"selections_txt_files/Gestures/" + await GetGestureFileName(text) + ".png\" width=\"100\" height=\"100\"><br>" + text;
             newButton.addEventListener('click', () => {
                 SetButtonText(text);
                 SetLineGesture(text);
@@ -185,7 +211,7 @@ async function SetSelectionAreaCol1(textType) {
 async function SetSelectionAreaCol2(wordsType) {
 
     RemoveButtonsCol2();
-    const response = await fetch("Words/" + wordsType + ".txt")
+    const response = await fetch("selections_txt_files/Words/" + wordsType + ".txt")
     const rawData = await response.text();
     const data = await rawData.split("\n");
 
@@ -207,37 +233,10 @@ async function SetSelectionAreaCol2(wordsType) {
 
 
 //
-// Update text on renderer
-//
-const line1Render = document.getElementById("line1Render");
-const line2Render = document.getElementById("line2Render");
-const gestureRender = document.getElementById("gestureRender");
-
-async function ReRenderMessage(lineToReRender) {
-    var conjLine1 = "";
-    var conjLine2 = "";
-    
-    if (lineConjunction == ",") {
-        conjLine1 = ",";
-    }
-    else {
-        conjLine2 = lineConjunction;
-    }
-
-    line1Render.innerHTML = line1Template.trimEnd().replaceAll("****", line1Word.trimEnd()) + conjLine1;
-    line2Render.innerHTML = conjLine2 + " " + line2Template.trim().replaceAll("****", line2Word.trim());
-    if (lineGesture != "") {
-        gestureRender.src = lineGesture;
-    }
-}
-
-
-//
 // Sets the column width for different selections
 //
 async function ChangeSelectionArea(selectionType) {
     if (selectionType == "Templates" || selectionType == "Conjunctions") {
-        console.log("temp or conj");
         selectionAreaCol1.style.width = "100%";
         selectionAreaCol2.style.width = "0%";
         selectionAreaCol1.style.flexDirection = "column";

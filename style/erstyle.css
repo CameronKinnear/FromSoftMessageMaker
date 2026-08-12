@@ -122,3 +122,19 @@ button:hover {
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+#window {
+    background-image: url("images/erdtree_bg.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+.buttonDisabled {
+    border-color: gray;
+    border-style: dashed;
+}
+
+.buttonDisabled:hover {
+    background-color: white;
+}
